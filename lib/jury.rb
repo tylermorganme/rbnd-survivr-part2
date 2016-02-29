@@ -24,7 +24,10 @@ class Jury
   end
   def announce_winner(final_votes)
     final_votes.each do |finalist, votes|
-      return finalist if votes >= 4
+      if votes >= 4 then
+        puts "#{finalist} won!"
+        return finalist
+      end
     end
   end
 end

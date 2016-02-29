@@ -19,7 +19,9 @@ class Game
     merged_tribes = @tribes.inject([]) do |unified_tribe, individual_tribe|
       unified_tribe + individual_tribe.members
     end
-    Tribe.new({name: tribe_name, members: merged_tribes})
+    clear_tribes
+    add_tribe Tribe.new({name: tribe_name, members: merged_tribes})
+    return @tribes[0]
   end
   def individual_immunity_challenge
     @tribes.sample.members.sample

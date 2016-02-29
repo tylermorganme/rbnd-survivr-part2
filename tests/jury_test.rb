@@ -61,7 +61,7 @@ class TestJury < Minitest::Test
     end
     assert_equal 2, output[0].split("\n").length
   end
-  #
+  
   def test_announce_winner
     final_votes = {@finalists.first => 4, @finalists.last => 3}
     assert_equal @finalists.first, @jury.announce_winner(final_votes)
