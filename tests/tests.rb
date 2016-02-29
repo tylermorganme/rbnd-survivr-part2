@@ -11,9 +11,9 @@ require_relative "jury_test"
 require_relative "tribe_test"
 #
 # #4
-# require_relative "game_test"
+require_relative "game_test"
 #
 # #5
-# require_relative "survivr_test"
+require_relative "survivr_test"
 
 #Once you pass all tests, uncomment the code in survivr.rb to run your full simulation!
