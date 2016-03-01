@@ -25,17 +25,23 @@ def phase_one
   puts "Starting Survivr".light_blue
   puts "Phase 1".yellow
   puts ""
-  @borneo.tribes.each do |tribe|
-    puts "Tribe: #{tribe.name}"
-    tribe.members.each do |member|
-      puts member
-    end
-    puts ""
+
+  puts "Tribe: #{@borneo.tribes[0].name.pink}"
+  @borneo.tribes[0].members.each do |member|
+    puts member.to_s.capitalize
   end
+  puts "Tribe: #{@borneo.tribes[0].name.light_blue}"
+  @borneo.tribes[0].members.each do |member|
+    puts member.to_s.capitalize
+  end
+  puts ""
+
+  color1 = true
   @iterations.times do
     team = @borneo.immunity_challenge
     individual = team.tribal_council
-    puts "#{individual.to_s.blue}" + " voted off of ".red + "#{team.to_s.pink}"
+    puts "#{individual.to_s.capitalize.blue}" + " voted off of team ".red + (color1 ? "#{team.name.pink}" : "#{team.name.light_blue}")
+    color1 = !color1
   end
   puts ""
   @iterations
@@ -46,7 +52,7 @@ def phase_two
   @iterations = 3
   @iterations.times do
     immune = @borneo.individual_immunity_challenge
-    puts "#{immune.name.blue} " + "gained immunity".green
+    puts "#{immune.name.to_s.capitalize.blue} " + "gained immunity".green
     voted_off = @borneo.tribes[0].tribal_council({immune: immune})
     puts "#{voted_off.to_s.blue}" + " was voted off".red
   end
@@ -59,10 +65,10 @@ def phase_three
   @iterations = 7
   @iterations.times do
     immune = @borneo.individual_immunity_challenge
-    puts "#{immune.name.blue}" + " gained immunity".green
+    puts "#{immune.name.capitalize.blue}" + " gained immunity".green
     voted_off = @borneo.tribes[0].tribal_council({immune: immune})
     @jury.add_member(voted_off)
-    puts "#{voted_off.to_s.blue}" + " was voted off".red
+    puts "#{voted_off.to_s.capitalize.blue}" + " was voted off".red
   end
   puts ""
   puts "Jury Phase".yellow

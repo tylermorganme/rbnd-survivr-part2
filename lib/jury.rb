@@ -15,17 +15,17 @@ class Jury
     @members.each do |member|
       vote_for = finalists.sample
       final_votes[vote_for] +=1
-      puts "#{member} votes for #{vote_for}"
+      puts "#{member.to_s.capitalize} votes for #{vote_for.name.capitalize}"
     end
     final_votes
   end
   def report_votes(final_votes)
-    final_votes.each {|finalist, votes| puts "#{finalist} received #{votes} votes"}
+    final_votes.each {|finalist, votes| puts "#{finalist.name.capitalize} received #{votes} votes"}
   end
   def announce_winner(final_votes)
     final_votes.each do |finalist, votes|
       if votes >= 4 then
-        puts "#{finalist} won!"
+        puts "#{finalist.name.capitalize} won!"
         return finalist
       end
     end
