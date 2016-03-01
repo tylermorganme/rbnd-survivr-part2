@@ -2,6 +2,7 @@ require_relative "game"
 require_relative "tribe"
 require_relative "contestant"
 require_relative "jury"
+require 'colorizr'
 
 #After your tests pass, uncomment this code below
 #=========================================================
@@ -21,8 +22,8 @@ require_relative "jury"
 #This is where you will write your code for the three phases
 def phase_one
   @iterations = 8
-  puts "Starting Survivr"
-  puts "Phase 1"
+  puts "Starting Survivr".light_blue
+  puts "Phase 1".yellow
   puts ""
   @borneo.tribes.each do |tribe|
     puts "Tribe: #{tribe.name}"
@@ -34,37 +35,37 @@ def phase_one
   @iterations.times do
     team = @borneo.immunity_challenge
     individual = team.tribal_council
-    puts "#{individual} voted off of #{team}"
+    puts "#{individual.to_s.blue}" + " voted off of ".red + "#{team.to_s.pink}"
   end
   puts ""
   @iterations
 end
 
 def phase_two
-  puts "Phase 2"
+  puts "Phase 2".yellow
   @iterations = 3
   @iterations.times do
     immune = @borneo.individual_immunity_challenge
-    puts "#{immune.name} gained immunity"
+    puts "#{immune.name.blue} " + "gained immunity".green
     voted_off = @borneo.tribes[0].tribal_council({immune: immune})
-    puts "#{voted_off} was voted off"
+    puts "#{voted_off.to_s.blue}" + " was voted off".red
   end
   puts ""
   @iterations
 end
 
 def phase_three
-  puts "Phase 3"
+  puts "Phase 3".yellow
   @iterations = 7
   @iterations.times do
     immune = @borneo.individual_immunity_challenge
-    puts "#{immune.name} gained immunity"
+    puts "#{immune.name.blue}" + " gained immunity".green
     voted_off = @borneo.tribes[0].tribal_council({immune: immune})
     @jury.add_member(voted_off)
-    puts "#{voted_off} was voted off"
+    puts "#{voted_off.to_s.blue}" + " was voted off".red
   end
   puts ""
-  puts "Jury Phase"
+  puts "Jury Phase".yellow
   @iterations
 end
 
