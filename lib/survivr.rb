@@ -17,61 +17,49 @@ require 'colorizr'
 @borneo = Game.new(@coyopa, @hunapu)
 
 #=========================================================
+def print_voted_off(name, team, color)
+  puts "#{name.blue} voted off of team" + " #{team.send(color)}"
+end
 
+def print_immunity_challenge(iterations)
+  @iterations.times do
+    immune = @borneo.individual_immunity_challenge
+    puts "#{immune.name.capitalize.blue} " + "gained immunity".green
+    voted_off = @borneo.tribes[0].tribal_council({immune: immune})
+    puts print_voted_off(voted_off.name.capitalize, @borneo.tribes[0].name, "yellow")
+  end
+end
 
 #This is where you will write your code for the three phases
 def phase_one
   @iterations = 8
-  puts "Starting Survivr".light_blue
-  puts "Phase 1".yellow
-  puts ""
-
-  puts "Tribe: #{@borneo.tribes[0].name.pink}"
-  @borneo.tribes[0].members.each do |member|
-    puts member.to_s.capitalize
-  end
-  puts "Tribe: #{@borneo.tribes[0].name.light_blue}"
-  @borneo.tribes[0].members.each do |member|
-    puts member.to_s.capitalize
-  end
+  puts "Phase 1"
   puts ""
 
   color1 = true
   @iterations.times do
     team = @borneo.immunity_challenge
     individual = team.tribal_council
-    puts "#{individual.to_s.capitalize.blue}" + " voted off of team ".red + (color1 ? "#{team.name.pink}" : "#{team.name.light_blue}")
+    puts print_voted_off(individual.to_s.capitalize, team.name, color1 ? "pink" : "light_blue")
     color1 = !color1
   end
+
   puts ""
   @iterations
 end
 
 def phase_two
-  puts "Phase 2".yellow
+  puts "Phase 2"
   @iterations = 3
-  @iterations.times do
-    immune = @borneo.individual_immunity_challenge
-    puts "#{immune.name.to_s.capitalize.blue} " + "gained immunity".green
-    voted_off = @borneo.tribes[0].tribal_council({immune: immune})
-    puts "#{voted_off.to_s.blue}" + " was voted off".red
-  end
-  puts ""
+  print_immunity_challenge(@iterations)
   @iterations
 end
 
 def phase_three
-  puts "Phase 3".yellow
+  puts "Phase 3"
   @iterations = 7
-  @iterations.times do
-    immune = @borneo.individual_immunity_challenge
-    puts "#{immune.name.capitalize.blue}" + " gained immunity".green
-    voted_off = @borneo.tribes[0].tribal_council({immune: immune})
-    @jury.add_member(voted_off)
-    puts "#{voted_off.to_s.capitalize.blue}" + " was voted off".red
-  end
-  puts ""
-  puts "Jury Phase".yellow
+  print_immunity_challenge(@iterations)
+  puts "Jury Phase"
   @iterations
 end
 
