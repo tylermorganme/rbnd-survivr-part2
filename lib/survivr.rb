@@ -22,12 +22,15 @@ def print_voted_off(name, team, color)
 end
 
 def print_immunity_challenge(iterations)
+  eliminated = []
   @iterations.times do
     immune = @borneo.individual_immunity_challenge
     puts "#{immune.name.capitalize.blue} " + "gained immunity".green
     voted_off = @borneo.tribes[0].tribal_council({immune: immune})
+    eliminated << voted_off
     puts print_voted_off(voted_off.name.capitalize, @borneo.tribes[0].name, "yellow")
   end
+  eliminated
 end
 
 #This is where you will write your code for the three phases
@@ -58,7 +61,8 @@ end
 def phase_three
   puts "Phase 3"
   @iterations = 7
-  print_immunity_challenge(@iterations)
+  jury = print_immunity_challenge(@iterations)
+  jury.each {|member| @jury.add_member(member)}
   puts "Jury Phase"
   @iterations
 end
